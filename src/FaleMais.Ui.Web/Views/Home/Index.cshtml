@@ -1,0 +1,52 @@
+﻿@using FaleMais.Ui.Web.Extensions
+@model FaleMais.Ui.Web.Models.CalculoModel
+@{
+    ViewData["Title"] = "Página Inicial";
+}
+
+<form method="post">
+    <div class="text-center">
+        <h1 class="display-4">Bem Vindo ao cálculo de tarifação</h1>
+        <hr />
+        <div class="row">
+            <div class="col-sm-2 form-group">
+                <label asp-for="Origem"></label>
+                <select class="form-control" asp-for="Origem" asp-items="@ViewBag.Locais">
+                    <option value="">Selecione</option>
+                </select>
+                <span asp-validation-for="Origem" class="text-danger"></span>
+            </div>
+            <div class="col-sm-2 form-group">
+                <label asp-for="Destino"></label>
+                <select class="form-control" asp-for="Destino" asp-items="@ViewBag.Locais">
+                    <option value="">Selecione</option>
+                </select>
+                <span asp-validation-for="Destino" class="text-danger"></span>
+            </div>
+            <div class="col-sm-2 form-group">
+                <label asp-for="PlanoId"></label>
+                <select class="form-control" asp-for="PlanoId" asp-items="@ViewBag.Planos">
+                    <option value="">Nenhum</option>
+                </select>
+                <span asp-validation-for="PlanoId" class="text-danger"></span>
+            </div>
+            <div class="col-sm-2 form-group">
+                <label asp-for="Duracao"></label>
+                <input type="number" min="1" step="0.01" class="form-control" asp-for="Duracao" />
+                <span asp-validation-for="Duracao" class="text-danger"></span>
+            </div>
+            <div class="col-sm-2 form-group">
+                <button style="margin-top:30px;" class="btn btn-success">Calcular</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                @if (Model != null)
+                {
+                    <h4>Valor Sem o Plano Fale Mais: @Model.Valor.CurrencyFormat()</h4>
+                    <h4>Valor Com o Plano Fale Mais: @Model.ValorFaleMais.CurrencyFormat()</h4>
+                }
+            </div>
+        </div>
+    </div>
+</form>
